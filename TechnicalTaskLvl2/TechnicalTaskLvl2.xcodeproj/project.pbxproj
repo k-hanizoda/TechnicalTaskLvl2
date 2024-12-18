@@ -14,19 +14,11 @@
 			remoteGlobalIDString = CED25D032D11E7BA00861355;
 			remoteInfo = TechnicalTaskLvl2;
 		};
-		CED25D252D11E7BB00861355 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CED25CFC2D11E7BA00861355 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CED25D032D11E7BA00861355;
-			remoteInfo = TechnicalTaskLvl2;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		CED25D042D11E7BA00861355 /* TechnicalTaskLvl2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TechnicalTaskLvl2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED25D1A2D11E7BB00861355 /* TechnicalTaskLvl2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TechnicalTaskLvl2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CED25D242D11E7BB00861355 /* TechnicalTaskLvl2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TechnicalTaskLvl2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -53,11 +45,6 @@
 			path = TechnicalTaskLvl2Tests;
 			sourceTree = "<group>";
 		};
-		CED25D272D11E7BB00861355 /* TechnicalTaskLvl2UITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = TechnicalTaskLvl2UITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,13 +62,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CED25D212D11E7BB00861355 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -90,7 +70,6 @@
 			children = (
 				CED25D062D11E7BA00861355 /* TechnicalTaskLvl2 */,
 				CED25D1D2D11E7BB00861355 /* TechnicalTaskLvl2Tests */,
-				CED25D272D11E7BB00861355 /* TechnicalTaskLvl2UITests */,
 				CED25D052D11E7BA00861355 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -100,7 +79,6 @@
 			children = (
 				CED25D042D11E7BA00861355 /* TechnicalTaskLvl2.app */,
 				CED25D1A2D11E7BB00861355 /* TechnicalTaskLvl2Tests.xctest */,
-				CED25D242D11E7BB00861355 /* TechnicalTaskLvl2UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -153,29 +131,6 @@
 			productReference = CED25D1A2D11E7BB00861355 /* TechnicalTaskLvl2Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		CED25D232D11E7BB00861355 /* TechnicalTaskLvl2UITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CED25D352D11E7BB00861355 /* Build configuration list for PBXNativeTarget "TechnicalTaskLvl2UITests" */;
-			buildPhases = (
-				CED25D202D11E7BB00861355 /* Sources */,
-				CED25D212D11E7BB00861355 /* Frameworks */,
-				CED25D222D11E7BB00861355 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CED25D262D11E7BB00861355 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				CED25D272D11E7BB00861355 /* TechnicalTaskLvl2UITests */,
-			);
-			name = TechnicalTaskLvl2UITests;
-			packageProductDependencies = (
-			);
-			productName = TechnicalTaskLvl2UITests;
-			productReference = CED25D242D11E7BB00861355 /* TechnicalTaskLvl2UITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -190,10 +145,6 @@
 						CreatedOnToolsVersion = 16.2;
 					};
 					CED25D192D11E7BB00861355 = {
-						CreatedOnToolsVersion = 16.2;
-						TestTargetID = CED25D032D11E7BA00861355;
-					};
-					CED25D232D11E7BB00861355 = {
 						CreatedOnToolsVersion = 16.2;
 						TestTargetID = CED25D032D11E7BA00861355;
 					};
@@ -215,7 +166,6 @@
 			targets = (
 				CED25D032D11E7BA00861355 /* TechnicalTaskLvl2 */,
 				CED25D192D11E7BB00861355 /* TechnicalTaskLvl2Tests */,
-				CED25D232D11E7BB00861355 /* TechnicalTaskLvl2UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -229,13 +179,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		CED25D182D11E7BB00861355 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CED25D222D11E7BB00861355 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -259,13 +202,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CED25D202D11E7BB00861355 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -273,11 +209,6 @@
 			isa = PBXTargetDependency;
 			target = CED25D032D11E7BA00861355 /* TechnicalTaskLvl2 */;
 			targetProxy = CED25D1B2D11E7BB00861355 /* PBXContainerItemProxy */;
-		};
-		CED25D262D11E7BB00861355 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CED25D032D11E7BA00861355 /* TechnicalTaskLvl2 */;
-			targetProxy = CED25D252D11E7BB00861355 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -293,7 +224,6 @@
 				INFOPLIST_FILE = TechnicalTaskLvl2/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -325,7 +255,6 @@
 				INFOPLIST_FILE = TechnicalTaskLvl2/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -501,38 +430,6 @@
 			};
 			name = Release;
 		};
-		CED25D362D11E7BB00861355 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.test123.TechnicalTaskLvl2UITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = TechnicalTaskLvl2;
-			};
-			name = Debug;
-		};
-		CED25D372D11E7BB00861355 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.test123.TechnicalTaskLvl2UITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = TechnicalTaskLvl2;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -559,15 +456,6 @@
 			buildConfigurations = (
 				CED25D332D11E7BB00861355 /* Debug */,
 				CED25D342D11E7BB00861355 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CED25D352D11E7BB00861355 /* Build configuration list for PBXNativeTarget "TechnicalTaskLvl2UITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CED25D362D11E7BB00861355 /* Debug */,
-				CED25D372D11E7BB00861355 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
