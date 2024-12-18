@@ -1,0 +1,30 @@
+# Xcode
+#
+# User-specific files
+*.xcuserstate
+*.xcworkspace
+*.xcbkptlist
+*.xcuserstate
+.idea/
+.DS_Store
+.vscode/
+
+# Xcode build data
+build/
+DerivedData/
+
+# Xcode's Auto Generated files
+xcuserdata/
+
+# Logs
+*.log
+
+# User-specific files
+*.swp
+*~
+
+# Archive files
+*.xcarchive
+
+# Temporary files
+*.tmp
