@@ -10,6 +10,7 @@ final class CustomTextField: UITextField {
     
     init(type: TextFieldType) {
         super.init(frame: .zero)
+        self.delegate = self
         self.isSecureTextEntry = type.isSecure
         self.hasVisibilityToggle = type.showVisibilityToggle
         configureTextField(placeholder: type.placeholder)
@@ -100,5 +101,12 @@ extension CustomTextField {
     
     override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
         return textRect(forBounds: bounds)
+    }
+}
+
+extension CustomTextField: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

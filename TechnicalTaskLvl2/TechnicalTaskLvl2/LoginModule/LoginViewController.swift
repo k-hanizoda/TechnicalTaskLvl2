@@ -4,6 +4,7 @@ final class LoginViewController: UIViewController {
     private let contentView = UIView()
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.keyboardDismissMode = .onDrag
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         return scrollView
@@ -53,11 +54,15 @@ final class LoginViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        initializeHideKeyboard()
+        subscribeToNotification(UIResponder.keyboardWillChangeFrameNotification,
+                                selector: #selector(handleKeyboard(notification:)))
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+        unsubscribeFromAllNotifications()
     }
     
     static func createCustomButton(title: String, titleColor: UIColor, backgroundColor: UIColor) -> UIButton {
@@ -74,6 +79,10 @@ final class LoginViewController: UIViewController {
 }
 
 private extension LoginViewController {
+    @objc func handleKeyboard(notification: NSNotification) {
+        keyboardWillShowOrHide(notification: notification, scrollView: scrollView)
+    }
+    
     func setupLayout() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
