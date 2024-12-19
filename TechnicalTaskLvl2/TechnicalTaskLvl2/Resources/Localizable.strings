@@ -2,3 +2,4 @@
 "password_label" = "Enter your password";
 "email_placeholder" = "Email";
 "password_placeholder" = "Password";
+"welcome_label" = "Welcome to the Ships Information Project!";

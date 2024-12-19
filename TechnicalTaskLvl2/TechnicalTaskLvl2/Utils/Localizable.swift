@@ -6,4 +6,6 @@ enum Localizable {
     
     static let emailPlaceholder = NSLocalizedString("email_placeholder", comment: "Placeholder for email input")
     static let passwordPlaceholder = NSLocalizedString("password_placeholder", comment: "Placeholder for password input")
+    
+    static let welcomeLabel = NSLocalizedString("welcome_label", comment: "Label for welcome text")
 }
