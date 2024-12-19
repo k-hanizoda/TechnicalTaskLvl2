@@ -8,4 +8,7 @@ enum Localizable {
     static let passwordPlaceholder = NSLocalizedString("password_placeholder", comment: "Placeholder for password input")
     
     static let welcomeLabel = NSLocalizedString("welcome_label", comment: "Label for welcome text")
+    static let signInButton = NSLocalizedString("sign_in_button", comment: "Button text for signing in")
+    static let continueAsGuestButton = NSLocalizedString("continue_as_guest_button", comment: "Button text for signing in as guest")
+    static let orLabel = NSLocalizedString("or_label", comment: "Label for or text")
 }

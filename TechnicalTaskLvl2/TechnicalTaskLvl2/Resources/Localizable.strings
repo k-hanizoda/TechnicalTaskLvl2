@@ -3,3 +3,6 @@
 "email_placeholder" = "Email";
 "password_placeholder" = "Password";
 "welcome_label" = "Welcome to the Ships Information Project!";
+"sign_in_button" = "Sign In";
+"continue_as_guest_button" = "Continue As Guest";
+"or_label" = "or";
