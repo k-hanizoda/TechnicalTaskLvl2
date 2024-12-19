@@ -8,13 +8,13 @@ final class CustomTextField: UITextField {
     private var isPasswordVisible = false
     private var hasVisibilityToggle: Bool = false
     
-    init(placeholder: String, systemImageName: String, isSecure: Bool = false, showVisibilityToggle: Bool = false) {
+    init(type: TextFieldType) {
         super.init(frame: .zero)
-        self.isSecureTextEntry = isSecure
-        self.hasVisibilityToggle = showVisibilityToggle
-        configureTextField(placeholder: placeholder)
-        setupLeftView(with: systemImageName)
-        if showVisibilityToggle {
+        self.isSecureTextEntry = type.isSecure
+        self.hasVisibilityToggle = type.showVisibilityToggle
+        configureTextField(placeholder: type.placeholder)
+        setupLeftView(with: type.systemImageName)
+        if type.showVisibilityToggle {
             setupRightView()
         }
     }
@@ -30,7 +30,9 @@ private extension CustomTextField {
         layer.cornerRadius = 25.0
         clipsToBounds = true
         textColor = .white
-        font = UIFont.systemFont(ofSize: 17)
+        font = UIFont.preferredFont(forTextStyle: .body)
+        adjustsFontForContentSizeCategory = true
+        
         autocapitalizationType = .none
         
         self.placeholder = placeholder

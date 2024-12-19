@@ -1,41 +1,31 @@
 import UIKit
 
 final class LoginViewController: UIViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .Main
-        
-        let emailTextField = CustomTextField(
-            placeholder: "Email",
-            systemImageName: "envelope.fill",
-            isSecure: false,
-            showVisibilityToggle: false
-        )
-        
-        emailTextField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(emailTextField)
+        setupInputFields()
+    }
+}
+
+private extension LoginViewController {
+    func setupInputFields() {
+        let emailInput = LabeledInputField(type: .email)
+        emailInput.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(emailInput)
         NSLayoutConstraint.activate([
-            emailTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            emailTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
-            emailTextField.widthAnchor.constraint(equalToConstant: 360),
-            emailTextField.heightAnchor.constraint(equalToConstant: 50)
+            emailInput.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emailInput.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100.0),
+            emailInput.widthAnchor.constraint(equalToConstant: 360.0)
         ])
         
-        let passwordTextField = CustomTextField(
-            placeholder: "Password",
-            systemImageName: "lock.fill",
-            isSecure: true,
-            showVisibilityToggle: true
-        )
-        
-        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(passwordTextField)
+        let passwordInput = LabeledInputField(type: .password)
+        passwordInput.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(passwordInput)
         NSLayoutConstraint.activate([
-            passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
-            passwordTextField.widthAnchor.constraint(equalToConstant: 360),
-            passwordTextField.heightAnchor.constraint(equalToConstant: 50)
+            passwordInput.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            passwordInput.topAnchor.constraint(equalTo: emailInput.bottomAnchor, constant: 20.0),
+            passwordInput.widthAnchor.constraint(equalToConstant: 360.0)
         ])
     }
 }
