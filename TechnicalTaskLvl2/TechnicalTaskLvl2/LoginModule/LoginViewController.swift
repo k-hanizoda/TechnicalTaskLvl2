@@ -1,6 +1,14 @@
 import UIKit
 
 final class LoginViewController: UIViewController {
+    private let contentView = UIView()
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
+    }()
+    
     private let boatImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "sailboat.fill")
@@ -42,6 +50,16 @@ final class LoginViewController: UIViewController {
         setupLayout()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     static func createCustomButton(title: String, titleColor: UIColor, backgroundColor: UIColor) -> UIButton {
         let button = UIButton()
         button.setTitle(title, for: .normal)
@@ -57,62 +75,73 @@ final class LoginViewController: UIViewController {
 
 private extension LoginViewController {
     func setupLayout() {
-        boatImageView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(boatImageView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
         NSLayoutConstraint.activate([
-            boatImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            boatImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10.0),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(contentView)
+        NSLayoutConstraint.activate([
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+        
+        [boatImageView, welcomeLabel, emailInput, passwordInput, loginButton, separatorView, continueAsGuestButton].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview($0)
+        }
+        
+        NSLayoutConstraint.activate([
+            boatImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            boatImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 70.0),
             boatImageView.widthAnchor.constraint(equalToConstant: 100.0),
             boatImageView.heightAnchor.constraint(equalToConstant: 100.0)
         ])
         
-        welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(welcomeLabel)
         NSLayoutConstraint.activate([
-            welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            welcomeLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             welcomeLabel.topAnchor.constraint(equalTo: boatImageView.bottomAnchor, constant: 25.0)
         ])
         
-        emailInput.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(emailInput)
         NSLayoutConstraint.activate([
-            emailInput.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emailInput.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             emailInput.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 60.0),
             emailInput.widthAnchor.constraint(equalToConstant: 360.0)
         ])
         
-        passwordInput.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(passwordInput)
         NSLayoutConstraint.activate([
-            passwordInput.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            passwordInput.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             passwordInput.topAnchor.constraint(equalTo: emailInput.bottomAnchor, constant: 20.0),
             passwordInput.widthAnchor.constraint(equalToConstant: 360.0)
         ])
         
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(loginButton)
         NSLayoutConstraint.activate([
-            loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loginButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             loginButton.topAnchor.constraint(equalTo: passwordInput.bottomAnchor, constant: 100.0),
             loginButton.widthAnchor.constraint(equalToConstant: 360.0),
             loginButton.heightAnchor.constraint(equalToConstant: 50.0)
         ])
         
-        separatorView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(separatorView)
         NSLayoutConstraint.activate([
-            separatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            separatorView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             separatorView.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20.0),
             separatorView.widthAnchor.constraint(equalToConstant: 340.0),
         ])
         
-        continueAsGuestButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(continueAsGuestButton)
         NSLayoutConstraint.activate([
-            continueAsGuestButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            continueAsGuestButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             continueAsGuestButton.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 20.0),
             continueAsGuestButton.widthAnchor.constraint(equalToConstant: 360.0),
-            continueAsGuestButton.heightAnchor.constraint(equalToConstant: 50.0)
+            continueAsGuestButton.heightAnchor.constraint(equalToConstant: 50.0),
+            continueAsGuestButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20.0)
         ])
     }
 }
