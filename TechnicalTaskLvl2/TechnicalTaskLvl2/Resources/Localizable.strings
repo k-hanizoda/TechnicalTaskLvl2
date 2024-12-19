@@ -6,3 +6,4 @@
 "sign_in_button" = "Sign In";
 "continue_as_guest_button" = "Continue As Guest";
 "or_label" = "or";
+"invalid_email_label" = "Please enter a valid email address";

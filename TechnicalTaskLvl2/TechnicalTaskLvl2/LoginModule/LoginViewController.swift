@@ -13,7 +13,7 @@ final class LoginViewController: UIViewController {
     private let boatImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "sailboat.fill")
-        imageView.tintColor = UIColor.white.withAlphaComponent(0.7)
+        imageView.tintColor = .white.withAlphaComponent(0.7)
         imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -22,7 +22,7 @@ final class LoginViewController: UIViewController {
     private let welcomeLabel: UILabel = {
         let label = UILabel()
         label.text = Localizable.welcomeLabel
-        label.textColor = UIColor.white.withAlphaComponent(0.8)
+        label.textColor = .white.withAlphaComponent(0.8)
         TextStyle.applyDynamicType(to: label, font: TextStyle.header)
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -122,19 +122,19 @@ private extension LoginViewController {
         
         NSLayoutConstraint.activate([
             emailInput.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            emailInput.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 60.0),
+            emailInput.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 70.0),
             emailInput.widthAnchor.constraint(equalToConstant: 360.0)
         ])
         
         NSLayoutConstraint.activate([
             passwordInput.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            passwordInput.topAnchor.constraint(equalTo: emailInput.bottomAnchor, constant: 20.0),
+            passwordInput.topAnchor.constraint(equalTo: emailInput.bottomAnchor, constant: 35.0),
             passwordInput.widthAnchor.constraint(equalToConstant: 360.0)
         ])
         
         NSLayoutConstraint.activate([
             loginButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            loginButton.topAnchor.constraint(equalTo: passwordInput.bottomAnchor, constant: 100.0),
+            loginButton.topAnchor.constraint(equalTo: passwordInput.bottomAnchor, constant: 110.0),
             loginButton.widthAnchor.constraint(equalToConstant: 360.0),
             loginButton.heightAnchor.constraint(equalToConstant: 50.0)
         ])

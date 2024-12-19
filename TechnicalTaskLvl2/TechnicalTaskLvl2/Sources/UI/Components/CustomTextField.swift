@@ -46,7 +46,7 @@ private extension CustomTextField {
         let visibilityPadding = padding + 20.0
         
         leftImageView.image = UIImage(systemName: systemImageName)
-        leftImageView.tintColor = UIColor.white.withAlphaComponent(0.7)
+        leftImageView.tintColor = .white.withAlphaComponent(0.7)
         leftImageView.layer.masksToBounds = true
         leftImageView.contentMode = .scaleAspectFit
         
@@ -58,7 +58,7 @@ private extension CustomTextField {
         let visibilityPadding = padding + 40.0
         
         toggleButton.setImage(UIImage(systemName: "eye"), for: .normal)
-        toggleButton.tintColor = UIColor.white.withAlphaComponent(0.7)
+        toggleButton.tintColor = .white.withAlphaComponent(0.7)
         toggleButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
         
         rightView = createPaddingView(with: toggleButton, padding: visibilityPadding)

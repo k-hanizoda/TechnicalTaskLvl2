@@ -3,12 +3,18 @@ import UIKit
 final class LabeledInputField: UIView {
     private let label = UILabel()
     private let inputField: CustomTextField
+    private let invalidEmailLabel = UILabel()
     
     init(type: TextFieldType) {
         inputField = CustomTextField(type: type)
         super.init(frame: .zero)
         setupLabel(with: type.labelText)
+        setupInvalidEmailLabel()
         setupLayout()
+        
+        if type == .email {
+            inputField.addTarget(self, action: #selector(validateEmail), for: .editingChanged)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -21,6 +27,15 @@ private extension LabeledInputField {
         label.text = text
         label.textColor = .white.withAlphaComponent(0.8)
         TextStyle.applyDynamicType(to: label, font: TextStyle.description)
+    }
+    
+    func setupInvalidEmailLabel() {
+        invalidEmailLabel.text = Localizable.invalidEmailLabel
+        invalidEmailLabel.textColor = .candyAppleRed
+        TextStyle.applyDynamicType(to: invalidEmailLabel, font: TextStyle.description)
+        invalidEmailLabel.numberOfLines = 0
+        invalidEmailLabel.textAlignment = .left
+        invalidEmailLabel.isHidden = true
     }
     
     func setupLayout() {
@@ -42,5 +57,21 @@ private extension LabeledInputField {
             
             bottomAnchor.constraint(equalTo: inputField.bottomAnchor)
         ])
+        
+        invalidEmailLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(invalidEmailLabel)
+        NSLayoutConstraint.activate([
+            invalidEmailLabel.topAnchor.constraint(equalTo: inputField.bottomAnchor, constant: 8.0),
+            invalidEmailLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15.0),
+            invalidEmailLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+    }
+    
+    @objc func validateEmail() {
+        if let email = inputField.text, !email.isValidEmail() {
+            invalidEmailLabel.isHidden = false
+        } else {
+            invalidEmailLabel.isHidden = true
+        }
     }
 }
