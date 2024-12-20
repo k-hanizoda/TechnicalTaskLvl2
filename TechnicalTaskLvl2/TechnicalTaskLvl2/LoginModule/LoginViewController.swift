@@ -1,6 +1,9 @@
 import UIKit
 
 final class LoginViewController: UIViewController {
+    private var enteredEmail: String = ""
+    private var enteredPassword: String = ""
+    
     private let contentView = UIView()
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -48,7 +51,9 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .darkPurple
+        loginButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
         setupLayout()
+        setupTextChangedHandlers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,7 +63,7 @@ final class LoginViewController: UIViewController {
         subscribeToNotification(UIResponder.keyboardWillChangeFrameNotification,
                                 selector: #selector(handleKeyboard(notification:)))
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -79,6 +84,34 @@ final class LoginViewController: UIViewController {
 }
 
 private extension LoginViewController {
+    @objc func didTapSignIn() {
+        guard !enteredEmail.isEmpty, !enteredPassword.isEmpty else {
+            showAlert(title: Localizable.loginFailedLabel, message: Localizable.loginFailedMessageForEmptyInput)
+            return
+        }
+        
+        guard let savedPassword = AuthCredentials.validLogins[enteredEmail], savedPassword == enteredPassword else {
+            showAlert(title: Localizable.loginFailedLabel, message: Localizable.loginFailedMessageForErrorInput)
+            return
+        }
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Localizable.alertActionOK, style: .default))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func setupTextChangedHandlers() {
+        emailInput.onTextChanged = { [weak self] text in
+            self?.enteredEmail = text
+        }
+        
+        passwordInput.onTextChanged = { [weak self] text in
+            self?.enteredPassword = text
+        }
+    }
+    
     @objc func handleKeyboard(notification: NSNotification) {
         keyboardWillShowOrHide(notification: notification, scrollView: scrollView)
     }

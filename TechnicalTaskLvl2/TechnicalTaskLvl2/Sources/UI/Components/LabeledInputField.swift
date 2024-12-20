@@ -1,6 +1,8 @@
 import UIKit
 
 final class LabeledInputField: UIView {
+    var onTextChanged: ((String) -> Void)?
+    
     private let label = UILabel()
     private let inputField: CustomTextField
     private let invalidEmailLabel = UILabel()
@@ -12,6 +14,7 @@ final class LabeledInputField: UIView {
         setupInvalidEmailLabel()
         setupLayout()
         
+        inputField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         if type == .email {
             inputField.addTarget(self, action: #selector(validateEmail), for: .editingChanged)
         }
@@ -32,7 +35,7 @@ private extension LabeledInputField {
     func setupInvalidEmailLabel() {
         invalidEmailLabel.text = Localizable.invalidEmailLabel
         invalidEmailLabel.textColor = .candyAppleRed
-        TextStyle.applyDynamicType(to: invalidEmailLabel, font: TextStyle.description)
+        TextStyle.applyDynamicType(to: invalidEmailLabel, font: TextStyle.title)
         invalidEmailLabel.numberOfLines = 0
         invalidEmailLabel.textAlignment = .left
         invalidEmailLabel.isHidden = true
@@ -67,11 +70,18 @@ private extension LabeledInputField {
         ])
     }
     
+    @objc func textFieldDidChange() {
+        onTextChanged?(inputField.text ?? "")
+    }
+    
     @objc func validateEmail() {
         if let email = inputField.text, !email.isValidEmail() {
             invalidEmailLabel.isHidden = false
+            inputField.layer.borderWidth = 2.0
+            inputField.layer.borderColor = UIColor.candyAppleRed.cgColor
         } else {
             invalidEmailLabel.isHidden = true
+            inputField.layer.borderColor = UIColor.clear.cgColor
         }
     }
 }

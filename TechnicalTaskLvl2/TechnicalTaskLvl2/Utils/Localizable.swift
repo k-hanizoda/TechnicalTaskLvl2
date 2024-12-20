@@ -12,4 +12,9 @@ enum Localizable {
     static let continueAsGuestButton = NSLocalizedString("continue_as_guest_button", comment: "Button text for signing in as guest")
     static let orLabel = NSLocalizedString("or_label", comment: "Label for or text")
     static let invalidEmailLabel = NSLocalizedString("invalid_email_label", comment: "Label for invalid email text")
+    
+    static let loginFailedLabel = NSLocalizedString("login_failed_label", comment: "Label for login failed text for empty input")
+    static let loginFailedMessageForEmptyInput = NSLocalizedString("login_failed_message_for_empty_input", comment: "Message for login failed text for empty input")
+    static let loginFailedMessageForErrorInput = NSLocalizedString("login_failed_message_for_error_input", comment: "Message for login failed text for error input")
+    static let alertActionOK = NSLocalizedString("alert_action_ok", comment: "Alert action OK text")
 }
