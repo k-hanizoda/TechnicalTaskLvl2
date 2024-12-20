@@ -1,8 +1,7 @@
 import UIKit
 
 final class LoginViewController: UIViewController {
-    private var enteredEmail: String = ""
-    private var enteredPassword: String = ""
+    private var viewModel: LoginViewModel
     
     private let contentView = UIView()
     private let scrollView: UIScrollView = {
@@ -48,12 +47,21 @@ final class LoginViewController: UIViewController {
         backgroundColor: .flashWhite
     )
     
+    init(viewModel: LoginViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) is not implemented. Use the custom initializer to instantiate this view controller programmatically.")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .darkPurple
         loginButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
         setupLayout()
-        setupTextChangedHandlers()
+        configureBindings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,32 +92,32 @@ final class LoginViewController: UIViewController {
 }
 
 private extension LoginViewController {
-    @objc func didTapSignIn() {
-        guard !enteredEmail.isEmpty, !enteredPassword.isEmpty else {
-            showAlert(title: Localizable.loginFailedLabel, message: Localizable.loginFailedMessageForEmptyInput)
-            return
+    func configureBindings() {
+        setupTextChangedHandlers()
+        
+        viewModel.onLoginFailure = { [weak self] errorMessage in
+            self?.showAlert(title: Localizable.loginFailedLabel, message: errorMessage)
+        }
+    }
+    
+    func setupTextChangedHandlers() {
+        emailInput.onTextChanged = { [weak self] text in
+            self?.viewModel.enteredEmail = text
         }
         
-        guard let savedPassword = AuthCredentials.validLogins[enteredEmail], savedPassword == enteredPassword else {
-            showAlert(title: Localizable.loginFailedLabel, message: Localizable.loginFailedMessageForErrorInput)
-            return
+        passwordInput.onTextChanged = { [weak self] text in
+            self?.viewModel.enteredPassword = text
         }
+    }
+
+    @objc func didTapSignIn() {
+        viewModel.validateLogin()
     }
     
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: Localizable.alertActionOK, style: .default))
         self.present(alert, animated: true, completion: nil)
-    }
-    
-    func setupTextChangedHandlers() {
-        emailInput.onTextChanged = { [weak self] text in
-            self?.enteredEmail = text
-        }
-        
-        passwordInput.onTextChanged = { [weak self] text in
-            self?.enteredPassword = text
-        }
     }
     
     @objc func handleKeyboard(notification: NSNotification) {
