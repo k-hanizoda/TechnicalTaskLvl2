@@ -59,7 +59,7 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .darkPurple
-        loginButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
+        setupButtonActions()
         setupLayout()
         configureBindings()
     }
@@ -92,6 +92,30 @@ final class LoginViewController: UIViewController {
 }
 
 private extension LoginViewController {
+    func setupButtonActions() {
+        loginButton.addTarget(self, action: #selector(buttonTappedWithAnimation(_:)), for: .touchUpInside)
+        continueAsGuestButton.addTarget(self, action: #selector(buttonTappedWithAnimation(_:)), for: .touchUpInside)
+    }
+    
+    @objc func buttonTappedWithAnimation(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.2, animations: {
+            sender.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+        }) { _ in
+            UIView.animate(withDuration: 0.2, animations: {
+                sender.transform = .identity
+            })
+        }
+        
+        switch sender {
+        case loginButton:
+            viewModel.validateLogin()
+        case continueAsGuestButton:
+            debugPrint("viewModel.continueAsGuest()")
+        default:
+            break
+        }
+    }
+    
     func configureBindings() {
         setupTextChangedHandlers()
         
@@ -108,10 +132,6 @@ private extension LoginViewController {
         passwordInput.onTextChanged = { [weak self] text in
             self?.viewModel.enteredPassword = text
         }
-    }
-
-    @objc func didTapSignIn() {
-        viewModel.validateLogin()
     }
     
     func showAlert(title: String, message: String) {
