@@ -9,16 +9,22 @@ final class LoginViewModel {
     
     func validateLogin() {
         guard !enteredEmail.isEmpty, !enteredPassword.isEmpty else {
-            onLoginFailure?(Localizable.loginFailedMessageForEmptyInput)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.onLoginFailure?(Localizable.loginFailedMessageForEmptyInput)
+            }
             return
         }
         
         guard let savedPassword = KeychainHelper.shared.getPassword(for: enteredEmail),
               savedPassword == enteredPassword else {
-            onLoginFailure?(Localizable.loginFailedMessageForErrorInput)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.onLoginFailure?(Localizable.loginFailedMessageForErrorInput)
+            }
             return
         }
         
-        onLoginSuccess?()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.onLoginSuccess?()
+        }
     }
 }

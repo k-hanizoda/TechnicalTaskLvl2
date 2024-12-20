@@ -3,6 +3,13 @@ import UIKit
 final class LoginViewController: UIViewController {
     private var viewModel: LoginViewModel
     
+    private let loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.color = .white.withAlphaComponent(0.7)
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+    
     private let contentView = UIView()
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -106,6 +113,8 @@ private extension LoginViewController {
             })
         }
         
+        loadingIndicator.startAnimating()
+        
         switch sender {
         case loginButton:
             viewModel.validateLogin()
@@ -120,6 +129,7 @@ private extension LoginViewController {
         setupTextChangedHandlers()
         
         viewModel.onLoginFailure = { [weak self] errorMessage in
+            self?.loadingIndicator.stopAnimating()
             self?.showAlert(title: Localizable.loginFailedLabel, message: errorMessage)
         }
     }
@@ -164,7 +174,7 @@ private extension LoginViewController {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
         
-        [boatImageView, welcomeLabel, emailInput, passwordInput, loginButton, separatorView, continueAsGuestButton].forEach {
+        [boatImageView, welcomeLabel, emailInput, passwordInput, loginButton, separatorView, continueAsGuestButton, loadingIndicator].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview($0)
         }
@@ -212,6 +222,11 @@ private extension LoginViewController {
             continueAsGuestButton.widthAnchor.constraint(equalToConstant: 360.0),
             continueAsGuestButton.heightAnchor.constraint(equalToConstant: 50.0),
             continueAsGuestButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20.0)
+        ])
+        
+        NSLayoutConstraint.activate([
+            loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 }

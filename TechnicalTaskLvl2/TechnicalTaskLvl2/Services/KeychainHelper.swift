@@ -6,7 +6,8 @@ final class KeychainHelper {
     
     func setupInitialCredentials() {
         let predefinedLogins: [String: String] = [
-            "user@ex.com": "123"
+            "user@ex.com": "123",
+            "user@gmail.com": "qwerty"
         ]
         
         for (email, password) in predefinedLogins {
