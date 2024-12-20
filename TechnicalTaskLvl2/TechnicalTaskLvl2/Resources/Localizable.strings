@@ -1,0 +1,13 @@
+"email_label" = "Enter your email";
+"password_label" = "Enter your password";
+"email_placeholder" = "Email";
+"password_placeholder" = "Password";
+"welcome_label" = "Welcome to the Ships Information Project!";
+"sign_in_button" = "Sign In";
+"continue_as_guest_button" = "Continue As Guest";
+"or_label" = "or";
+"invalid_email_label" = "That doesn't look like real email address. Try again?";
+"login_failed_label" = "Login Failed";
+"login_failed_message_for_empty_input" = "Please enter your email and password.";
+"login_failed_message_for_error_input" = "Your email or password do not match.";
+"alert_action_ok" = "OK";
