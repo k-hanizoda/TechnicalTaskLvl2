@@ -120,7 +120,7 @@ private extension LoginViewController {
         case loginButton:
             viewModel.validateLogin()
         case continueAsGuestButton:
-            debugPrint("viewModel.continueAsGuest()")
+            loadingIndicator.stopAnimating()
             login?()
         default:
             break
@@ -133,6 +133,10 @@ private extension LoginViewController {
         viewModel.onLoginFailure = { [weak self] errorMessage in
             self?.loadingIndicator.stopAnimating()
             self?.showAlert(title: Localizable.loginFailedLabel, message: errorMessage)
+        }
+        
+        viewModel.onLoginSuccess = { [weak self] in
+            self?.loadingIndicator.stopAnimating()
             self?.login?()
         }
     }
