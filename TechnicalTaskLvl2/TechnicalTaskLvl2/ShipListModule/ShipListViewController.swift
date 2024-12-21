@@ -2,26 +2,52 @@ import UIKit
 
 final class ShipListViewController: UIViewController {
     var back: (() -> Void)?
+    private let userMode: UserMode
     
-    private let button: UIButton = {
-        let button = UIButton()
-        button.setTitle("Exit", for: .normal)
-        return button
-    }()
+    init(userMode: UserMode) {
+        self.userMode = userMode
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) is not implemented. Use the custom initializer to instantiate this view controller programmatically.")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .candyAppleRed
+        setupUI()
+    }
+}
+    
+private extension ShipListViewController {
+    func setupUI() {
+        view.backgroundColor = .darkPurple
+        navigationItem.title = "Ship List"
+        navigationController?.navigationBar.titleTextAttributes = [
+            .foregroundColor: UIColor.flashWhite
+        ]
+        navigationItem.hidesBackButton = true
         
-        view.addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16).isActive = true
+        let rightButtonTitle: String
         
-        button.addTarget(self, action: #selector(exitAction), for: .touchUpInside)
+        switch userMode {
+        case .user:
+            rightButtonTitle = "LogOut"
+        case .guest:
+            rightButtonTitle = "Exit"
+        }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: rightButtonTitle,
+            style: .plain,
+            target: self,
+            action: #selector(exitAction)
+        )
+        
+        navigationItem.rightBarButtonItem?.tintColor = .flashWhite
     }
     
-    @objc private func exitAction() {
+    @objc func exitAction() {
         back?()
     }
 }

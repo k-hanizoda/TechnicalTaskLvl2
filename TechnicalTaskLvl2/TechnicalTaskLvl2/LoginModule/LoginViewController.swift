@@ -2,7 +2,7 @@ import UIKit
 
 final class LoginViewController: UIViewController {
     private var viewModel: LoginViewModel
-    var login: (() -> Void)?
+    var navigateToShipList: ((UserMode) -> Void)?
     
     private let loadingIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
@@ -78,6 +78,9 @@ final class LoginViewController: UIViewController {
         initializeHideKeyboard()
         subscribeToNotification(UIResponder.keyboardWillChangeFrameNotification,
                                 selector: #selector(handleKeyboard(notification:)))
+        emailInput.clearInput()
+        passwordInput.clearInput()
+        loadingIndicator.stopAnimating()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -120,8 +123,7 @@ private extension LoginViewController {
         case loginButton:
             viewModel.validateLogin()
         case continueAsGuestButton:
-            loadingIndicator.stopAnimating()
-            login?()
+            navigateToShipList?(.guest)
         default:
             break
         }
@@ -137,7 +139,7 @@ private extension LoginViewController {
         
         viewModel.onLoginSuccess = { [weak self] in
             self?.loadingIndicator.stopAnimating()
-            self?.login?()
+            self?.navigateToShipList?(.user)
         }
     }
     

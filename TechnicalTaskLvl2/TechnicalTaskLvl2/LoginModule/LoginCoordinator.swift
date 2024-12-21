@@ -12,14 +12,14 @@ final class LoginCoordinator: Coordinator {
     
     func start() {
         let viewController = LoginViewController(viewModel: LoginViewModel())
-        viewController.login = { [weak self] in
-            self?.navigateToShipList()
+        viewController.navigateToShipList = { [weak self] mode in
+            self?.navigateToShipList(with: mode)
         }
         navigationController.pushViewController(viewController, animated: false)
     }
     
-    func navigateToShipList() {
-        let coordinator = ShipListCoordinator(navigationController: navigationController)
+    func navigateToShipList(with mode: UserMode) {
+        let coordinator = ShipListCoordinator(navigationController: navigationController, userMode: mode)
         coordinator.finish = { [weak self, weak coordinator] in
             if let coordinator = coordinator {
                 self?.removeChild(coordinator)
