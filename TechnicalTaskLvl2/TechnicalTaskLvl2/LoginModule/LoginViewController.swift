@@ -2,6 +2,7 @@ import UIKit
 
 final class LoginViewController: UIViewController {
     private var viewModel: LoginViewModel
+    var login: (() -> Void)?
     
     private let loadingIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
@@ -120,6 +121,7 @@ private extension LoginViewController {
             viewModel.validateLogin()
         case continueAsGuestButton:
             debugPrint("viewModel.continueAsGuest()")
+            login?()
         default:
             break
         }
@@ -131,6 +133,7 @@ private extension LoginViewController {
         viewModel.onLoginFailure = { [weak self] errorMessage in
             self?.loadingIndicator.stopAnimating()
             self?.showAlert(title: Localizable.loginFailedLabel, message: errorMessage)
+            self?.login?()
         }
     }
     
