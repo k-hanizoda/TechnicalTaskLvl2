@@ -17,4 +17,8 @@ enum Localizable {
     static let loginFailedMessageForEmptyInput = NSLocalizedString("login_failed_message_for_empty_input", comment: "Message for login failed text for empty input")
     static let loginFailedMessageForErrorInput = NSLocalizedString("login_failed_message_for_error_input", comment: "Message for login failed text for error input")
     static let alertActionOK = NSLocalizedString("alert_action_ok", comment: "Alert action OK text")
+    
+    static let shipListTitle = NSLocalizedString("ship_list", comment: "Title for ship list")
+    static let logOutTitle = NSLocalizedString("logOut", comment: "Title for logout")
+    static let exitTitle = NSLocalizedString("exit", comment: "Title for exit")
 }

@@ -1,10 +1,22 @@
 import UIKit
 
 final class ShipListViewController: UIViewController {
+    private var viewModel: ShipListViewModel
+    
     var back: (() -> Void)?
     private let userMode: UserMode
     
-    init(userMode: UserMode) {
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(ShipTableViewCell.self, forCellReuseIdentifier: ShipTableViewCell.identifier)
+        tableView.separatorColor = .coolGrey
+        return tableView
+    }()
+    
+    init(viewModel: ShipListViewModel ,userMode: UserMode) {
+        self.viewModel = viewModel
         self.userMode = userMode
         super.init(nibName: nil, bundle: nil)
     }
@@ -15,39 +27,80 @@ final class ShipListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
+        tableView.backgroundColor = .darkPurple
+        setupNavigationBar()
+        setupRightBarButton()
+        setupLayout()
     }
 }
     
 private extension ShipListViewController {
-    func setupUI() {
-        view.backgroundColor = .darkPurple
-        navigationItem.title = "Ship List"
-        navigationController?.navigationBar.titleTextAttributes = [
-            .foregroundColor: UIColor.flashWhite
-        ]
+    func setupNavigationBar() {
+        navigationItem.title = Localizable.shipListTitle
+        let standardAppearance = UINavigationBarAppearance()
+        standardAppearance.backgroundColor = .darkPurple.withAlphaComponent(0.9)
+        standardAppearance.titleTextAttributes = [.foregroundColor: UIColor.flashWhite]
+        
+        let scrollEdgeAppearance = UINavigationBarAppearance()
+        scrollEdgeAppearance.backgroundColor = .darkPurple
+        scrollEdgeAppearance.titleTextAttributes = [.foregroundColor: UIColor.flashWhite]
+        
+        navigationController?.navigationBar.standardAppearance = standardAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = scrollEdgeAppearance
+        
         navigationItem.hidesBackButton = true
-        
-        let rightButtonTitle: String
-        
-        switch userMode {
-        case .user:
-            rightButtonTitle = "LogOut"
-        case .guest:
-            rightButtonTitle = "Exit"
-        }
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
+    }
+     
+    func setupRightBarButton() {
+        let rightButtonTitle = getRightButtonTitle(for: userMode)
+        let rightBarButton = UIBarButtonItem(
             title: rightButtonTitle,
             style: .plain,
             target: self,
             action: #selector(exitAction)
         )
+        rightBarButton.tintColor = .flashWhite
+        navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
+    func getRightButtonTitle(for mode: UserMode) -> String {
+        switch mode {
+        case .user:
+            return Localizable.logOutTitle
+        case .guest:
+            return Localizable.exitTitle
+        }
+    }
+    
+    func setupLayout() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
         
-        navigationItem.rightBarButtonItem?.tintColor = .flashWhite
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
     
     @objc func exitAction() {
         back?()
+    }
+}
+
+extension ShipListViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.numberOfRowsInSection(section: section)
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: ShipTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        cell.configure(with: viewModel.postItems[indexPath.row])
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        120.0
     }
 }

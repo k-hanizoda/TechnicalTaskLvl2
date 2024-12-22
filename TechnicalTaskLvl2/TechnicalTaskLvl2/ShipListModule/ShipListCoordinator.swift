@@ -13,7 +13,7 @@ final class ShipListCoordinator: Coordinator {
     }
     
     func start() {
-        let viewController = ShipListViewController(userMode: userMode)
+        let viewController = ShipListViewController(viewModel: ShipListViewModel(), userMode: userMode)
         viewController.back = { [weak self] in
             self?.navigationController.popToRootViewController(animated: true)
             self?.finish?()
