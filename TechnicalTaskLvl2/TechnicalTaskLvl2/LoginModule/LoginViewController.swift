@@ -66,7 +66,7 @@ final class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .darkPurple
+        view.backgroundColor = .darkPurple
         setupButtonActions()
         setupLayout()
         configureBindings()

@@ -4,6 +4,7 @@ final class ShipListViewController: UIViewController {
     private var viewModel: ShipListViewModel
     
     var back: (() -> Void)?
+    var navigateToShipInfo: ((Int) -> Void)?
     private let userMode: UserMode
     
     private lazy var tableView: UITableView = {
@@ -108,5 +109,9 @@ extension ShipListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         120.0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        navigateToShipInfo?(indexPath.row)
     }
 }
