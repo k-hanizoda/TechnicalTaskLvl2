@@ -27,7 +27,7 @@ final class CustomTextField: UITextField {
 
 private extension CustomTextField {
     func configureTextField(placeholder: String) {
-        backgroundColor = .coolGrey
+        backgroundColor = .slateGray
         layer.cornerRadius = 25.0
         clipsToBounds = true
         textColor = .white

@@ -12,7 +12,7 @@ final class ShipListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ShipTableViewCell.self, forCellReuseIdentifier: ShipTableViewCell.identifier)
-        tableView.separatorColor = .coolGrey
+        tableView.separatorColor = .slateGray
         return tableView
     }()
     
@@ -38,17 +38,6 @@ final class ShipListViewController: UIViewController {
 private extension ShipListViewController {
     func setupNavigationBar() {
         navigationItem.title = Localizable.shipListTitle
-        let standardAppearance = UINavigationBarAppearance()
-        standardAppearance.backgroundColor = .darkPurple.withAlphaComponent(0.9)
-        standardAppearance.titleTextAttributes = [.foregroundColor: UIColor.flashWhite]
-        
-        let scrollEdgeAppearance = UINavigationBarAppearance()
-        scrollEdgeAppearance.backgroundColor = .darkPurple
-        scrollEdgeAppearance.titleTextAttributes = [.foregroundColor: UIColor.flashWhite]
-        
-        navigationController?.navigationBar.standardAppearance = standardAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = scrollEdgeAppearance
-        
         navigationItem.hidesBackButton = true
     }
      

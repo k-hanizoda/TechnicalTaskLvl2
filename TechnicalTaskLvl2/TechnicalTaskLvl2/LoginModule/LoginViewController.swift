@@ -177,11 +177,8 @@ private extension LoginViewController {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
         
-        [boatImageView, welcomeLabel, emailInput, passwordInput, loginButton, separatorView, continueAsGuestButton, loadingIndicator].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview($0)
-        }
-        
+        boatImageView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(boatImageView)
         NSLayoutConstraint.activate([
             boatImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             boatImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 70.0),
@@ -189,23 +186,31 @@ private extension LoginViewController {
             boatImageView.heightAnchor.constraint(equalToConstant: 100.0)
         ])
         
+        welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(welcomeLabel)
         NSLayoutConstraint.activate([
             welcomeLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             welcomeLabel.topAnchor.constraint(equalTo: boatImageView.bottomAnchor, constant: 25.0)
         ])
         
+        emailInput.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(emailInput)
         NSLayoutConstraint.activate([
             emailInput.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             emailInput.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 70.0),
             emailInput.widthAnchor.constraint(equalToConstant: 360.0)
         ])
         
+        passwordInput.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(passwordInput)
         NSLayoutConstraint.activate([
             passwordInput.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             passwordInput.topAnchor.constraint(equalTo: emailInput.bottomAnchor, constant: 35.0),
             passwordInput.widthAnchor.constraint(equalToConstant: 360.0)
         ])
         
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(loginButton)
         NSLayoutConstraint.activate([
             loginButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             loginButton.topAnchor.constraint(equalTo: passwordInput.bottomAnchor, constant: 110.0),
@@ -213,12 +218,16 @@ private extension LoginViewController {
             loginButton.heightAnchor.constraint(equalToConstant: 50.0)
         ])
         
+        separatorView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(separatorView)
         NSLayoutConstraint.activate([
             separatorView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             separatorView.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20.0),
             separatorView.widthAnchor.constraint(equalToConstant: 340.0),
         ])
         
+        continueAsGuestButton.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(continueAsGuestButton)
         NSLayoutConstraint.activate([
             continueAsGuestButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             continueAsGuestButton.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 20.0),
@@ -227,6 +236,8 @@ private extension LoginViewController {
             continueAsGuestButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20.0)
         ])
         
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(loadingIndicator)
         NSLayoutConstraint.activate([
             loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)

@@ -22,4 +22,5 @@ enum Localizable {
     static let shipListTitle = NSLocalizedString("ship_list", comment: "Title for ship list")
     static let logOutTitle = NSLocalizedString("logOut", comment: "Title for logout")
     static let exitTitle = NSLocalizedString("exit", comment: "Title for exit")
+    static let shipInfoTitle = NSLocalizedString("ship_info", comment: "Title for ship info")
 }
