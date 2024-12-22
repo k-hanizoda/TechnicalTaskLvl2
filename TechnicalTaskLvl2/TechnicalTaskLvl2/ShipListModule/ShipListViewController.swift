@@ -85,7 +85,13 @@ private extension ShipListViewController {
     }
     
     @objc func exitAction() {
-        back?()
+        if userMode == .guest {
+            showAlert(title: nil, message: Localizable.alertGuestModelTitle) { [weak self] in
+                self?.back?()
+            }
+        } else {
+            back?()
+        }
     }
 }
 

@@ -153,12 +153,6 @@ private extension LoginViewController {
         }
     }
     
-    func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Localizable.alertActionOK, style: .default))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     @objc func handleKeyboard(notification: NSNotification) {
         keyboardWillShowOrHide(notification: notification, scrollView: scrollView)
     }

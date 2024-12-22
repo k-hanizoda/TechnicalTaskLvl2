@@ -12,5 +12,6 @@
 "login_failed_message_for_error_input" = "Your email or password do not match.";
 "alert_action_ok" = "OK";
 "ship_list" = "Ship List";
-"logOut" = "LogOut";
+"logOut" = "Logout";
 "exit" = "Exit";
+"alert_guest_model_title" = "Thank you for trialing this app";
