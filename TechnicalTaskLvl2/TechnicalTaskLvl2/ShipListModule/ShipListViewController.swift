@@ -102,5 +102,6 @@ extension ShipListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         navigateToShipInfo?(indexPath.row)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
