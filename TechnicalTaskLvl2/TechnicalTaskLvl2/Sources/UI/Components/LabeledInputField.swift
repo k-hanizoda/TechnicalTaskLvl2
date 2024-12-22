@@ -1,6 +1,10 @@
 import UIKit
 
 final class LabeledInputField: UIView {
+    enum Constants {
+        static let emptyString = ""
+    }
+    
     var onTextChanged: ((String) -> Void)?
     
     private let label = UILabel()
@@ -22,6 +26,11 @@ final class LabeledInputField: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented. Use init(type:) instead to initialize LabeledInputField.")
+    }
+    
+    func clearInput() {
+        inputField.text = Constants.emptyString
+        onTextChanged?(Constants.emptyString)
     }
 }
 
@@ -71,7 +80,7 @@ private extension LabeledInputField {
     }
     
     @objc func textFieldDidChange() {
-        onTextChanged?(inputField.text ?? "")
+        onTextChanged?(inputField.text ?? Constants.emptyString)
     }
     
     @objc func validateEmail() {

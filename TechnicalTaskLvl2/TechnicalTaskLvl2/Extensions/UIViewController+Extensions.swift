@@ -28,13 +28,13 @@ extension UIViewController {
               let animationCurveRawValue = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber else {
             return
         }
-
+        
         let keyboardFrame = keyboardFrameValue.cgRectValue
         let keyboardHeight = view.bounds.height - keyboardFrame.origin.y
-
+        
         scrollView.contentInset.bottom = keyboardHeight
         scrollView.verticalScrollIndicatorInsets.bottom = keyboardHeight
-
+        
         let animationOptions = UIView.AnimationOptions(rawValue: animationCurveRawValue.uintValue << 16)
         UIView.animate(withDuration: animationDuration.doubleValue,
                        delay: 0,
@@ -42,5 +42,16 @@ extension UIViewController {
                        animations: {
             self.view.layoutIfNeeded()
         })
+    }
+}
+        
+extension UIViewController {
+    func showAlert(title: String?, message: String?, actionTitle: String = Localizable.alertActionOK, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: actionTitle, style: .default) { _ in
+            completion?()
+        }
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
     }
 }

@@ -2,6 +2,7 @@ import UIKit
 
 final class LoginViewController: UIViewController {
     private var viewModel: LoginViewModel
+    var navigateToShipList: ((UserMode) -> Void)?
     
     private let loadingIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
@@ -77,6 +78,9 @@ final class LoginViewController: UIViewController {
         initializeHideKeyboard()
         subscribeToNotification(UIResponder.keyboardWillChangeFrameNotification,
                                 selector: #selector(handleKeyboard(notification:)))
+        emailInput.clearInput()
+        passwordInput.clearInput()
+        loadingIndicator.stopAnimating()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -119,7 +123,7 @@ private extension LoginViewController {
         case loginButton:
             viewModel.validateLogin()
         case continueAsGuestButton:
-            debugPrint("viewModel.continueAsGuest()")
+            navigateToShipList?(.guest)
         default:
             break
         }
@@ -132,6 +136,11 @@ private extension LoginViewController {
             self?.loadingIndicator.stopAnimating()
             self?.showAlert(title: Localizable.loginFailedLabel, message: errorMessage)
         }
+        
+        viewModel.onLoginSuccess = { [weak self] in
+            self?.loadingIndicator.stopAnimating()
+            self?.navigateToShipList?(.user)
+        }
     }
     
     func setupTextChangedHandlers() {
@@ -142,12 +151,6 @@ private extension LoginViewController {
         passwordInput.onTextChanged = { [weak self] text in
             self?.viewModel.enteredPassword = text
         }
-    }
-    
-    func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Localizable.alertActionOK, style: .default))
-        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func handleKeyboard(notification: NSNotification) {
