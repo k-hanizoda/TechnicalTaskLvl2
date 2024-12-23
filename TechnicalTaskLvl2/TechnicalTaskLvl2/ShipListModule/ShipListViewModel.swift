@@ -22,7 +22,9 @@ private extension ShipListViewModel {
     func fetchData() async throws {
         do {
             let ships = try await dataProvider.fetchData()
-            self.ships = ships
+            self.ships = ships.sorted {
+                $0.name.lowercased() < $1.name.lowercased()
+            }
         } catch {
             throw NetworkError.requestFailed("Failed to fetch post items.")
         }
