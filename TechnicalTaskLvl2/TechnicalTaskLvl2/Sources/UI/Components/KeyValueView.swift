@@ -38,17 +38,20 @@ private extension KeyValueView {
         layer.cornerRadius = 15.0
         
         keyLabel.textColor = .white.withAlphaComponent(0.8)
-        TextStyle.applyDynamicType(to: keyLabel, font: TextStyle.header)
+        TextStyle.applyDynamicType(to: keyLabel, font: TextStyle.body)
         
-        valueLabel.textColor = .white
-        TextStyle.applyDynamicType(to: valueLabel, font: TextStyle.body)
+        valueLabel.textColor = .flashWhite
+        TextStyle.applyDynamicType(to: valueLabel, font: TextStyle.header)
     }
     
     func setupLayout() {
         let topInset: CGFloat = 10.0
         let leadingInset: CGFloat = 25.0
-        let trailingInset: CGFloat = -5.0
+        let trailingInset: CGFloat = -15.0
         let bottomInset: CGFloat = -10.0
+        
+        keyLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        valueLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         
         keyValueStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(keyValueStackView)

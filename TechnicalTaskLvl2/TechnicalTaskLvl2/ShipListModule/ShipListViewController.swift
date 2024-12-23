@@ -14,7 +14,7 @@ final class ShipListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ShipTableViewCell.self, forCellReuseIdentifier: ShipTableViewCell.identifier)
-        tableView.separatorColor = .slateGray
+        tableView.separatorColor = .flashWhite.withAlphaComponent(0.8)
         return tableView
     }()
     

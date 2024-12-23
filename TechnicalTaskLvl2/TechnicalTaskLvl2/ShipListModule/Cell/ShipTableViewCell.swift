@@ -23,6 +23,7 @@ final class ShipTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
+        setupSelectedBackground()
     }
     
     required init?(coder: NSCoder) {
@@ -64,6 +65,12 @@ final class ShipTableViewCell: UITableViewCell {
 }
 
 private extension ShipTableViewCell {
+    private func setupSelectedBackground() {
+        let selectedBackground = UIView()
+        selectedBackground.backgroundColor = .slateGray.withAlphaComponent(0.2)
+        self.selectedBackgroundView = selectedBackground
+    }
+    
     func setupUI() {
         backgroundColor = .darkPurple
         

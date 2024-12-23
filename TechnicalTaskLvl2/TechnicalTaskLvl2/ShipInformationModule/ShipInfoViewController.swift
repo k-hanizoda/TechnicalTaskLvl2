@@ -70,8 +70,8 @@ private extension ShipInfoViewController {
     func configureKeyValueViews(with ship: Ship) {
         nameView.configure(type: .name, valueText: ship.name)
         typeView.configure(type: .type, valueText: ship.type)
-        yearView.configure(type: .year, valueText: String(ship.builtYear ?? 0))
-        weightView.configure(type: .weight, valueText: String(ship.weight ?? 0))
+        yearView.configure(type: .year, valueText: ship.builtYear.toString(defaultValue: Localizable.notAssigned))
+        weightView.configure(type: .weight, valueText: ship.weight.toString(defaultValue: Localizable.notAssigned))
         homePortView.configure(type: .homePort, valueText: ship.homePort ?? Localizable.notAssigned)
         rolesView.configure(type: .roles, valueText: ship.roles?.joined(separator: ", ") ?? Localizable.notAssigned)
     }
