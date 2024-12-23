@@ -13,7 +13,7 @@ final class ShipInformationViewController: UIViewController {
     
     private let shipImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Battleship")
+        imageView.image = .frigateShip
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 120.0
         imageView.contentMode = .scaleAspectFill

@@ -1,7 +1,9 @@
 import UIKit
+import Combine
 
 final class ShipListViewController: UIViewController {
     private var viewModel: ShipListViewModel
+    private var cancellables = Set<AnyCancellable>()
     
     var back: (() -> Void)?
     var navigateToShipInfo: ((Int) -> Void)?
@@ -32,10 +34,20 @@ final class ShipListViewController: UIViewController {
         setupNavigationBar()
         setupRightBarButton()
         setupLayout()
+        bind()
     }
 }
     
 private extension ShipListViewController {
+    func bind() {
+        viewModel.$ships
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.tableView.reloadData()
+            }
+            .store(in: &cancellables)
+    }
+    
     func setupNavigationBar() {
         navigationItem.title = Localizable.shipListTitle
         navigationItem.hidesBackButton = true
@@ -92,7 +104,7 @@ extension ShipListViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ShipTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        cell.configure(with: viewModel.postItems[indexPath.row])
+        cell.configure(with: viewModel.ships[indexPath.row])
         return cell
     }
     

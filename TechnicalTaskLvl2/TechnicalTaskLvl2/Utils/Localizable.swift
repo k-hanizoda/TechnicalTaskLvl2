@@ -30,4 +30,5 @@ enum Localizable {
     static let shipWeightTitle = NSLocalizedString("ship_weight", comment: "Title for ship weight")
     static let homePortTitle = NSLocalizedString("home_port", comment: "Title for home port")
     static let rolesTitle = NSLocalizedString("roles", comment: "Title for roles")
+    static let notAssigned = NSLocalizedString("not_assigned", comment: "Title for not assigned field")
 }

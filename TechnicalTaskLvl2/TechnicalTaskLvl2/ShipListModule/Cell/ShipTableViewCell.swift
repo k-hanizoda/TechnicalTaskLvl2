@@ -38,11 +38,19 @@ final class ShipTableViewCell: UITableViewCell {
         yearLabel.text = nil
     }
     
-    func configure(with shipItem: ShipItem) {
-        shipImage.image = shipItem.image
-        nameLabel.text = shipItem.name
-        typeLabel.text = shipItem.type
-        yearLabel.text = shipItem.year
+    func configure(with ship: Ship) {
+        nameLabel.text = ship.name
+        typeLabel.text = ship.type
+        yearLabel.text = ship.builtYear != nil ? String(ship.builtYear!) : Localizable.notAssigned
+        
+        guard let imageUrl = ship.image else {
+            shipImage.image = .frigateShip
+            return
+        }
+        
+        Task {
+            await shipImage.loadFromURL(imageUrl)
+        }
     }
 
     static func makeLabel(withFontStyle fontStyle: UIFont) -> UILabel {

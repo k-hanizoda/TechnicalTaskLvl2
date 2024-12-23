@@ -146,11 +146,21 @@ private extension LoginViewController {
     func setupTextChangedHandlers() {
         emailInput.onTextChanged = { [weak self] text in
             self?.viewModel.enteredEmail = text
+            self?.updateLoginButtonState()
         }
         
         passwordInput.onTextChanged = { [weak self] text in
             self?.viewModel.enteredPassword = text
+            self?.updateLoginButtonState()
         }
+    }
+    
+    func updateLoginButtonState() {
+        let isEmailValid = viewModel.enteredEmail.isValidEmail()
+        let isPasswordValid = !viewModel.enteredPassword.isEmpty
+        
+        loginButton.isEnabled = isEmailValid && isPasswordValid
+        loginButton.alpha = loginButton.isEnabled ? 1.0 : 0.5
     }
     
     @objc func handleKeyboard(notification: NSNotification) {
