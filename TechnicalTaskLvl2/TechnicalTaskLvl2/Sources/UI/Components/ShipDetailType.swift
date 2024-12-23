@@ -8,12 +8,12 @@ enum ShipDetailType {
     
     var labelText: String {
         switch self {
-        case .name: "Ship name:"
-        case .type: "Ship type:"
-        case .year: "Built year:"
-        case .weight: "Weight:"
-        case .homePort: "Home port:"
-        case .roles: "Roles:"
+        case .name: Localizable.shipNameTitle
+        case .type: Localizable.shipTypeTitle
+        case .year: Localizable.builtYearTitle
+        case .weight: Localizable.shipWeightTitle
+        case .homePort: Localizable.homePortTitle
+        case .roles: Localizable.rolesTitle
         }
     }
 }
