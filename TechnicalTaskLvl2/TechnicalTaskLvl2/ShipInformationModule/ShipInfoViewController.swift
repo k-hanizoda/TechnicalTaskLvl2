@@ -1,6 +1,10 @@
 import UIKit
+import Combine
 
-final class ShipInformationViewController: UIViewController {
+final class ShipInfoViewController: UIViewController {
+    private var viewModel: ShipInfoViewModel
+    private var cancellable = Set<AnyCancellable>()
+    
     var popToParent: (() -> Void)?
     
     private let contentView = UIView()
@@ -13,19 +17,18 @@ final class ShipInformationViewController: UIViewController {
     
     private let shipImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = .frigateShip
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 120.0
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
-    private let nameView = KeyValueView(type: .name)
-    private let typeView = KeyValueView(type: .type)
-    private let yearView = KeyValueView(type: .year)
-    private let weightView = KeyValueView(type: .weight)
-    private let homePortView = KeyValueView(type: .homePort)
-    private let rolesView = KeyValueView(type: .roles)
+    private let nameView = KeyValueView()
+    private let typeView = KeyValueView()
+    private let yearView = KeyValueView()
+    private let weightView = KeyValueView()
+    private let homePortView = KeyValueView()
+    private let rolesView = KeyValueView()
     
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [nameView, typeView, yearView, weightView, homePortView, rolesView])
@@ -34,12 +37,54 @@ final class ShipInformationViewController: UIViewController {
         return stackView
     }()
     
+    init(viewModel: ShipInfoViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) is not implemented. Use the custom initializer to instantiate this view controller programmatically.")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .darkPurple
         setupNavigationBar()
         setupRightBarButton()
         setupLayout()
+        bind()
+    }
+}
+
+private extension ShipInfoViewController {
+    func bind() {
+        viewModel.$ship
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] ship in
+                self?.configureKeyValueViews(with: ship)
+                self?.loadShipImage(from: ship.image)
+            }
+            .store(in: &cancellable)
+    }
+        
+    func configureKeyValueViews(with ship: Ship) {
+        nameView.configure(type: .name, valueText: ship.name)
+        typeView.configure(type: .type, valueText: ship.type)
+        yearView.configure(type: .year, valueText: String(ship.builtYear ?? 0))
+        weightView.configure(type: .weight, valueText: String(ship.weight ?? 0))
+        homePortView.configure(type: .homePort, valueText: ship.homePort ?? Localizable.notAssigned)
+        rolesView.configure(type: .roles, valueText: ship.roles?.joined(separator: ", ") ?? Localizable.notAssigned)
+    }
+        
+    func loadShipImage(from url: URL?) {
+        guard let url else {
+            shipImageView.image = .frigateShip
+            return
+        }
+        
+        Task {
+            await shipImageView.loadFromURL(url)
+        }
     }
     
     func setupNavigationBar() {

@@ -3,10 +3,10 @@ import Combine
 
 final class ShipListViewController: UIViewController {
     private var viewModel: ShipListViewModel
-    private var cancellables = Set<AnyCancellable>()
+    private var cancellable = Set<AnyCancellable>()
     
     var back: (() -> Void)?
-    var navigateToShipInfo: ((Int) -> Void)?
+    var navigateToShipInfo: ((Ship) -> Void)?
     private let userMode: UserMode
     
     private lazy var tableView: UITableView = {
@@ -45,7 +45,7 @@ private extension ShipListViewController {
             .sink { [weak self] _ in
                 self?.tableView.reloadData()
             }
-            .store(in: &cancellables)
+            .store(in: &cancellable)
     }
     
     func setupNavigationBar() {
@@ -113,7 +113,7 @@ extension ShipListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigateToShipInfo?(indexPath.row)
+        navigateToShipInfo?(viewModel.ships[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

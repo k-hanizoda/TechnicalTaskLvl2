@@ -29,15 +29,15 @@ final class ShipListCoordinator: Coordinator {
             self?.navigationController.popToRootViewController(animated: true)
             self?.finish?()
         }
-        viewController.navigateToShipInfo = { [weak self] index in
-            self?.navigateToShipInfo(selectedIndex: index)
+        viewController.navigateToShipInfo = { [weak self] ship in
+            self?.navigateToShipInfo(ship: ship)
         }
         shipListViewController = viewController
         navigationController.pushViewController(viewController, animated: false)
     }
     
-    private func navigateToShipInfo(selectedIndex: Int) {
-        let coordinator = ShipInformationCoordinator(presenterView: shipListViewController)
+    private func navigateToShipInfo(ship: Ship) {
+        let coordinator = ShipInfoCoordinator(presenterView: shipListViewController, ship: ship)
         coordinator.finish = { [weak self, weak coordinator] in
             if let coordinator = coordinator {
                 self?.removeChild(coordinator)

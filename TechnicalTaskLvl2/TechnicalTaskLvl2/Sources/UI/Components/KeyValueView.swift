@@ -11,14 +11,18 @@ final class KeyValueView: UIView {
         return stackView
     }()
     
-    init(type: ShipDetailType, value: String = "") {
+    init() {
         super.init(frame: .zero)
         setupView()
-        configure(with: type.labelText, value: value)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented. Use init(type:) instead to initialize KeyValueView.")
+    }
+    
+    func configure(type: ShipDetailType, valueText: String) {
+        valueLabel.text = valueText
+        keyLabel.text = type.labelText
     }
 }
     
@@ -38,11 +42,6 @@ private extension KeyValueView {
         
         valueLabel.textColor = .white
         TextStyle.applyDynamicType(to: valueLabel, font: TextStyle.body)
-    }
-    
-    func configure(with keyText: String, value: String) {
-        keyLabel.text = keyText
-        valueLabel.text = value
     }
     
     func setupLayout() {
