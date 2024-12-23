@@ -74,10 +74,6 @@ private extension ShipTableViewCell {
             shipImage.heightAnchor.constraint(equalToConstant: shipSide)
         ])
         
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        typeLabel.translatesAutoresizingMaskIntoConstraints = false
-        yearLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         userInfoStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(userInfoStackView)
         NSLayoutConstraint.activate([

@@ -4,6 +4,7 @@ final class ShipListViewController: UIViewController {
     private var viewModel: ShipListViewModel
     
     var back: (() -> Void)?
+    var navigateToShipInfo: ((Int) -> Void)?
     private let userMode: UserMode
     
     private lazy var tableView: UITableView = {
@@ -11,7 +12,7 @@ final class ShipListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ShipTableViewCell.self, forCellReuseIdentifier: ShipTableViewCell.identifier)
-        tableView.separatorColor = .coolGrey
+        tableView.separatorColor = .slateGray
         return tableView
     }()
     
@@ -37,17 +38,6 @@ final class ShipListViewController: UIViewController {
 private extension ShipListViewController {
     func setupNavigationBar() {
         navigationItem.title = Localizable.shipListTitle
-        let standardAppearance = UINavigationBarAppearance()
-        standardAppearance.backgroundColor = .darkPurple.withAlphaComponent(0.9)
-        standardAppearance.titleTextAttributes = [.foregroundColor: UIColor.flashWhite]
-        
-        let scrollEdgeAppearance = UINavigationBarAppearance()
-        scrollEdgeAppearance.backgroundColor = .darkPurple
-        scrollEdgeAppearance.titleTextAttributes = [.foregroundColor: UIColor.flashWhite]
-        
-        navigationController?.navigationBar.standardAppearance = standardAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = scrollEdgeAppearance
-        
         navigationItem.hidesBackButton = true
     }
      
@@ -108,5 +98,10 @@ extension ShipListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         120.0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        navigateToShipInfo?(indexPath.row)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

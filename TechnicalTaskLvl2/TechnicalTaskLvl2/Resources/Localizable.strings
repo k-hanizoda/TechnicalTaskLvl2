@@ -15,3 +15,10 @@
 "logOut" = "Logout";
 "exit" = "Exit";
 "alert_guest_model_title" = "Thank you for trialing this app";
+"ship_info" = "Ship Info";
+"ship_name" = "Ship name:";
+"ship_type" = "Ship type:";
+"built_year" = "Built year:";
+"ship_weight" = "Weight (in kg):";
+"home_port" = "Home port:";
+"roles" = "Roles:";

@@ -41,7 +41,6 @@ private extension SeparatorView {
     }
     
     func setupLayout() {
-        self.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(stackView)
         NSLayoutConstraint.activate([

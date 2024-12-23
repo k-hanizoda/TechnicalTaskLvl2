@@ -3,6 +3,7 @@ import UIKit
 final class LoginCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController = UINavigationController()
+    private weak var loginViewController: LoginViewController?
     
     var finish: (() -> Void)?
     
@@ -15,11 +16,16 @@ final class LoginCoordinator: Coordinator {
         viewController.navigateToShipList = { [weak self] mode in
             self?.navigateToShipList(with: mode)
         }
+        loginViewController = viewController
         navigationController.pushViewController(viewController, animated: false)
     }
     
     func navigateToShipList(with mode: UserMode) {
-        let coordinator = ShipListCoordinator(navigationController: navigationController, userMode: mode)
+        let coordinator = ShipListCoordinator(
+            presenterView: loginViewController,
+            navigationController: navigationController,
+            userMode: mode
+        )
         coordinator.finish = { [weak self, weak coordinator] in
             if let coordinator = coordinator {
                 self?.removeChild(coordinator)

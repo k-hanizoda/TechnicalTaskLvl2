@@ -4,46 +4,36 @@ enum TextFieldType {
     
     var labelText: String {
         switch self {
-        case .email:
-            return Localizable.emailLabel
-        case .password:
-            return Localizable.passwordLabel
+        case .email: Localizable.emailLabel
+        case .password: Localizable.passwordLabel
         }
     }
     
     var placeholder: String {
         switch self {
-        case .email:
-            return Localizable.emailPlaceholder
-        case .password:
-            return Localizable.passwordPlaceholder
+        case .email: Localizable.emailPlaceholder
+        case .password: Localizable.passwordPlaceholder
         }
     }
     
     var systemImageName: String {
         switch self {
-        case .email:
-            return "envelope.fill"
-        case .password:
-            return "lock.fill"
+        case .email: "envelope.fill"
+        case .password: "lock.fill"
         }
     }
     
     var isSecure: Bool {
         switch self {
-        case .email:
-            return false
-        case .password:
-            return true
+        case .email: false
+        case .password: true
         }
     }
     
     var showVisibilityToggle: Bool {
         switch self {
-        case .email:
-            return false
-        case .password:
-            return true
+        case .email: false
+        case .password: true
         }
     }
 }

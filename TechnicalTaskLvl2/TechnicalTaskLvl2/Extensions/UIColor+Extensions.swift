@@ -8,13 +8,6 @@ extension UIColor {
         alpha: 1.0
     )
     
-    static let coolGrey = UIColor(
-        red: 78.0 / 255.0,
-        green: 85.0 / 255.0,
-        blue: 109.0 / 255.0,
-        alpha: 1.0
-    )
-    
     static let candyAppleRed = UIColor(
         red: 217.0 / 255.0,
         green: 4.0 / 255.0,
