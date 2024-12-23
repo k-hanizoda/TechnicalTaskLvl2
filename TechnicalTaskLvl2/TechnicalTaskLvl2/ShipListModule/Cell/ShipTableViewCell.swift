@@ -20,15 +20,24 @@ final class ShipTableViewCell: UITableViewCell {
         return stackView
     }()
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.color = .white.withAlphaComponent(0.8)
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
         setupSelectedBackground()
+        setupActivityIndicator()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupUI()
+        setupActivityIndicator()
     }
     
     override func prepareForReuse() {
@@ -49,8 +58,10 @@ final class ShipTableViewCell: UITableViewCell {
             return
         }
         
+        activityIndicator.startAnimating()
         Task {
             await shipImage.loadFromURL(imageUrl)
+            self.activityIndicator.stopAnimating()
         }
     }
 
@@ -96,6 +107,16 @@ private extension ShipTableViewCell {
             userInfoStackView.leadingAnchor.constraint(equalTo: shipImage.trailingAnchor, constant: leadingInset),
             userInfoStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: trailingInset),
             userInfoStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: bottomInset)
+        ])
+    }
+    
+    func setupActivityIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(activityIndicator)
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: shipImage.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: shipImage.centerYAnchor)
         ])
     }
 }

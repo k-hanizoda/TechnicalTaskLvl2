@@ -18,6 +18,12 @@ final class ShipListViewController: UIViewController {
         return tableView
     }()
     
+//    private lazy var refreshControl: UIRefreshControl = {
+//        let refreshControl = UIRefreshControl()
+//        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+//        return refreshControl
+//    }()
+    
     init(viewModel: ShipListViewModel ,userMode: UserMode) {
         self.viewModel = viewModel
         self.userMode = userMode
