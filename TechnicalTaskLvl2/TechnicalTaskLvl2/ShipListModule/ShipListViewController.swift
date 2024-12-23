@@ -1,10 +1,12 @@
 import UIKit
+import Combine
 
 final class ShipListViewController: UIViewController {
     private var viewModel: ShipListViewModel
+    private var cancellable = Set<AnyCancellable>()
     
     var back: (() -> Void)?
-    var navigateToShipInfo: ((Int) -> Void)?
+    var navigateToShipInfo: ((Ship) -> Void)?
     private let userMode: UserMode
     
     private lazy var tableView: UITableView = {
@@ -12,8 +14,15 @@ final class ShipListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ShipTableViewCell.self, forCellReuseIdentifier: ShipTableViewCell.identifier)
-        tableView.separatorColor = .slateGray
+        tableView.separatorColor = .flashWhite.withAlphaComponent(0.8)
         return tableView
+    }()
+    
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .flashWhite
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        return refreshControl
     }()
     
     init(viewModel: ShipListViewModel ,userMode: UserMode) {
@@ -32,10 +41,20 @@ final class ShipListViewController: UIViewController {
         setupNavigationBar()
         setupRightBarButton()
         setupLayout()
+        bind()
     }
 }
     
 private extension ShipListViewController {
+    func bind() {
+        viewModel.$ships
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.tableView.reloadData()
+            }
+            .store(in: &cancellable)
+    }
+    
     func setupNavigationBar() {
         navigationItem.title = Localizable.shipListTitle
         navigationItem.hidesBackButton = true
@@ -72,6 +91,15 @@ private extension ShipListViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+        
+        tableView.addSubview(refreshControl)
+    }
+    
+    @objc func refreshData() {
+        Task { [weak self] in
+            try await self?.viewModel.fetchData()
+            self?.refreshControl.endRefreshing()
+        }
     }
     
     @objc func exitAction() {
@@ -92,7 +120,7 @@ extension ShipListViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ShipTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        cell.configure(with: viewModel.postItems[indexPath.row])
+        cell.configure(with: viewModel.ships[indexPath.row])
         return cell
     }
     
@@ -101,7 +129,7 @@ extension ShipListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigateToShipInfo?(indexPath.row)
+        navigateToShipInfo?(viewModel.ships[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

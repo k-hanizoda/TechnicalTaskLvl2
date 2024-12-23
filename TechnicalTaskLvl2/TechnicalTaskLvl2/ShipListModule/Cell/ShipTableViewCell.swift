@@ -20,14 +20,24 @@ final class ShipTableViewCell: UITableViewCell {
         return stackView
     }()
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.color = .white.withAlphaComponent(0.8)
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
+        setupSelectedBackground()
+        setupActivityIndicator()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupUI()
+        setupActivityIndicator()
     }
     
     override func prepareForReuse() {
@@ -38,11 +48,21 @@ final class ShipTableViewCell: UITableViewCell {
         yearLabel.text = nil
     }
     
-    func configure(with shipItem: ShipItem) {
-        shipImage.image = shipItem.image
-        nameLabel.text = shipItem.name
-        typeLabel.text = shipItem.type
-        yearLabel.text = shipItem.year
+    func configure(with ship: Ship) {
+        nameLabel.text = ship.name
+        typeLabel.text = ship.type
+        yearLabel.text = ship.builtYear != nil ? String(ship.builtYear!) : Localizable.notAssigned
+        
+        guard let imageUrl = ship.image else {
+            shipImage.image = .frigateShip
+            return
+        }
+        
+        activityIndicator.startAnimating()
+        Task {
+            await shipImage.loadFromURL(imageUrl)
+            self.activityIndicator.stopAnimating()
+        }
     }
 
     static func makeLabel(withFontStyle fontStyle: UIFont) -> UILabel {
@@ -56,6 +76,12 @@ final class ShipTableViewCell: UITableViewCell {
 }
 
 private extension ShipTableViewCell {
+    private func setupSelectedBackground() {
+        let selectedBackground = UIView()
+        selectedBackground.backgroundColor = .slateGray.withAlphaComponent(0.2)
+        self.selectedBackgroundView = selectedBackground
+    }
+    
     func setupUI() {
         backgroundColor = .darkPurple
         
@@ -81,6 +107,16 @@ private extension ShipTableViewCell {
             userInfoStackView.leadingAnchor.constraint(equalTo: shipImage.trailingAnchor, constant: leadingInset),
             userInfoStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: trailingInset),
             userInfoStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: bottomInset)
+        ])
+    }
+    
+    func setupActivityIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(activityIndicator)
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: shipImage.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: shipImage.centerYAnchor)
         ])
     }
 }

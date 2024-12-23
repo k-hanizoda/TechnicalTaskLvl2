@@ -22,6 +22,7 @@ final class LoginCoordinator: Coordinator {
     
     func navigateToShipList(with mode: UserMode) {
         let coordinator = ShipListCoordinator(
+            dataProvider: ShipsDataProvider(),
             presenterView: loginViewController,
             navigationController: navigationController,
             userMode: mode
