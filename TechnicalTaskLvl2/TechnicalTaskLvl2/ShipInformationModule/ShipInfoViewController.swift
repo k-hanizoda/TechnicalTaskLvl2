@@ -132,7 +132,7 @@ private extension ShipInfoViewController {
         contentView.addSubview(shipImageView)
         NSLayoutConstraint.activate([
             shipImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            shipImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40.0),
+            shipImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30.0),
             shipImageView.widthAnchor.constraint(equalToConstant: 240.0),
             shipImageView.heightAnchor.constraint(equalToConstant: 240.0)
         ])

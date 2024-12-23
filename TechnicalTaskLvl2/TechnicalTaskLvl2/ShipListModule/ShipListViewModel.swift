@@ -11,13 +11,11 @@ final class ShipListViewModel {
             try await self?.fetchData()
         }
     }
-
+    
     func numberOfRowsInSection(section: Int) -> Int {
         ships.count
     }
-}
-
-private extension ShipListViewModel {
+    
     @MainActor
     func fetchData() async throws {
         do {

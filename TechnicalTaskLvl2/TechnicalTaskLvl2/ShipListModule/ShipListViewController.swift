@@ -18,11 +18,12 @@ final class ShipListViewController: UIViewController {
         return tableView
     }()
     
-//    private lazy var refreshControl: UIRefreshControl = {
-//        let refreshControl = UIRefreshControl()
-//        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-//        return refreshControl
-//    }()
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .flashWhite
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        return refreshControl
+    }()
     
     init(viewModel: ShipListViewModel ,userMode: UserMode) {
         self.viewModel = viewModel
@@ -90,6 +91,15 @@ private extension ShipListViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+        
+        tableView.addSubview(refreshControl)
+    }
+    
+    @objc func refreshData() {
+        Task { [weak self] in
+            try await self?.viewModel.fetchData()
+            self?.refreshControl.endRefreshing()
+        }
     }
     
     @objc func exitAction() {
