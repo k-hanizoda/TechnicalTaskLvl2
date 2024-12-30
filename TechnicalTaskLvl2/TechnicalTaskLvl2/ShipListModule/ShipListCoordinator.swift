@@ -39,7 +39,7 @@ final class ShipListCoordinator: Coordinator {
     private func navigateToShipInfo(ship: Ship) {
         let coordinator = ShipInfoCoordinator(presenterView: shipListViewController, ship: ship)
         coordinator.finish = { [weak self, weak coordinator] in
-            if let coordinator = coordinator {
+            if let coordinator {
                 self?.removeChild(coordinator)
             }
         }

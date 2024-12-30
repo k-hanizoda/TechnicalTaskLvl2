@@ -18,7 +18,7 @@ final class AppCoordinator: Coordinator {
     private func navigateToLogin() {
         let coordinator = LoginCoordinator(navigationController: navigationController)
         coordinator.finish = { [weak self, weak coordinator] in
-            if let coordinator = coordinator {
+            if let coordinator {
                 self?.removeChild(coordinator)
             }
             self?.navigationController.viewControllers.removeAll()

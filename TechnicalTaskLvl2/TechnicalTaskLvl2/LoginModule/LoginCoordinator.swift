@@ -28,7 +28,7 @@ final class LoginCoordinator: Coordinator {
             userMode: mode
         )
         coordinator.finish = { [weak self, weak coordinator] in
-            if let coordinator = coordinator {
+            if let coordinator {
                 self?.removeChild(coordinator)
             }
         }
