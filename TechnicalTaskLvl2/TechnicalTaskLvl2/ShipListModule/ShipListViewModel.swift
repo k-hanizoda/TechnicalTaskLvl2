@@ -12,10 +12,6 @@ final class ShipListViewModel {
         }
     }
     
-    func numberOfRowsInSection(section: Int) -> Int {
-        ships.count
-    }
-    
     @MainActor
     func fetchData() async throws {
         do {

@@ -21,7 +21,7 @@ extension UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    @objc func keyboardWillShowOrHide(notification: NSNotification, scrollView: UIScrollView) {
+    @objc func keyboardWillChangePresentation(notification: NSNotification, scrollView: UIScrollView) {
         guard let userInfo = notification.userInfo,
               let keyboardFrameValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
               let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber,

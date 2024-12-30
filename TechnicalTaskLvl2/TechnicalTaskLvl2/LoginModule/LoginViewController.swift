@@ -164,7 +164,7 @@ private extension LoginViewController {
     }
     
     @objc func handleKeyboard(notification: NSNotification) {
-        keyboardWillShowOrHide(notification: notification, scrollView: scrollView)
+        keyboardWillChangePresentation(notification: notification, scrollView: scrollView)
     }
     
     func setupLayout() {
