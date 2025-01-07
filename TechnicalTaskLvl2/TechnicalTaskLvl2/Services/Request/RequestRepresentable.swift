@@ -23,7 +23,12 @@ extension RequestRepresentable {
     }
     
     func createURLRequest() throws -> URLRequest {
-        guard let url else { throw NetworkError.invalidURL }
+        guard let url else {
+            throw NetworkError(
+                code: .invalidURL,
+                message: "The URL provided was invalid."
+            )
+        }
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = requestType.rawValue
         return urlRequest

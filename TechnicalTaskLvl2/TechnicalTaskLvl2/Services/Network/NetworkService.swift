@@ -11,11 +11,19 @@ final class HTTPClient: NetworkService {
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
         
         guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.invalidServerResponse
+            throw NetworkError(
+                code: .invalidServerResponse,
+                message: "The server returned an invalid response."
+            )
         }
         
         guard (200...299).contains(httpResponse.statusCode) else {
-            throw NetworkError.invalidStatusCode(httpResponse.statusCode)
+            throw NetworkError(
+                code: .invalidStatusCode(
+                    httpResponse.statusCode
+                ),
+                message: "The server returned an invalid status code: \(httpResponse.statusCode)."
+            )
         }
         
         return data

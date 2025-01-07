@@ -20,7 +20,11 @@ final class ShipListViewModel {
                 $0.name.lowercased() < $1.name.lowercased()
             }
         } catch {
-            throw NetworkError.requestFailed("Failed to fetch post items.")
+            throw NetworkError(
+                code: .requestFailed,
+                message: "Failed to fetch post items.",
+                underlyingError: error
+            )
         }
     }
 }
