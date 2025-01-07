@@ -25,7 +25,11 @@ final class LabeledInputField: UIView {
     }
     
     required init?(coder: NSCoder) {
+#if DEBUG
         fatalError("init(coder:) has not been implemented. Use init(type:) instead to initialize LabeledInputField.")
+#else
+        return nil
+#endif
     }
     
     func clearInput() {

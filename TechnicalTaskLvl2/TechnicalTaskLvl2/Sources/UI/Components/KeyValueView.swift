@@ -17,7 +17,11 @@ final class KeyValueView: UIView {
     }
     
     required init?(coder: NSCoder) {
+#if DEBUG
         fatalError("init(coder:) has not been implemented. Use init(type:) instead to initialize KeyValueView.")
+#else
+        return nil
+#endif
     }
     
     func configure(type: ShipDetailType, valueText: String) {

@@ -61,7 +61,11 @@ final class LoginViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
+#if DEBUG
         fatalError("init(coder:) is not implemented. Use the custom initializer to instantiate this view controller programmatically.")
+#else
+        return nil
+#endif
     }
     
     override func viewDidLoad() {
