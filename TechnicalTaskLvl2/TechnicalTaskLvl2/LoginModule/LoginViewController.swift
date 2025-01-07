@@ -108,28 +108,29 @@ final class LoginViewController: UIViewController {
 
 private extension LoginViewController {
     func setupButtonActions() {
-        loginButton.addTarget(self, action: #selector(buttonTappedWithAnimation(_:)), for: .touchUpInside)
-        continueAsGuestButton.addTarget(self, action: #selector(buttonTappedWithAnimation(_:)), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        continueAsGuestButton.addTarget(self, action: #selector(continueAsGuestButtonTapped), for: .touchUpInside)
     }
     
-    @objc func buttonTappedWithAnimation(_ sender: UIButton) {
+    @objc func loginButtonTapped() {
+        animateButton(loginButton)
+        loadingIndicator.startAnimating()
+        viewModel.validateLogin()
+    }
+    
+    @objc func continueAsGuestButtonTapped() {
+        animateButton(continueAsGuestButton)
+        loadingIndicator.startAnimating()
+        navigateToShipList?(.guest)
+    }
+    
+    private func animateButton(_ button: UIButton) {
         UIView.animate(withDuration: 0.2, animations: {
-            sender.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+            button.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
         }) { _ in
             UIView.animate(withDuration: 0.2, animations: {
-                sender.transform = .identity
+                button.transform = .identity
             })
-        }
-        
-        loadingIndicator.startAnimating()
-        
-        switch sender {
-        case loginButton:
-            viewModel.validateLogin()
-        case continueAsGuestButton:
-            navigateToShipList?(.guest)
-        default:
-            break
         }
     }
     
