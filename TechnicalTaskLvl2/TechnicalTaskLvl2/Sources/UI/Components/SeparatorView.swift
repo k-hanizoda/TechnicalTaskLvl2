@@ -8,7 +8,7 @@ final class SeparatorView: UIView {
         let label = UILabel()
         label.text = Localizable.orLabel
         label.textColor = .white.withAlphaComponent(0.6)
-        TextStyle.applyDynamicType(to: label, font: TextStyle.body)
+        label.applyStyle(.body)
         label.numberOfLines = 0
         label.textAlignment = .center
         return label

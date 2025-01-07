@@ -9,9 +9,9 @@ final class ShipTableViewCell: UITableViewCell {
         return imageView
     }()
 
-    private var nameLabel = ShipTableViewCell.makeLabel(withFontStyle: TextStyle.header)
-    private var typeLabel = ShipTableViewCell.makeLabel(withFontStyle: TextStyle.body)
-    private var yearLabel = ShipTableViewCell.makeLabel(withFontStyle: TextStyle.description)
+    private var nameLabel = ShipTableViewCell.makeLabel(withFontStyle: .header)
+    private var typeLabel = ShipTableViewCell.makeLabel(withFontStyle: .body)
+    private var yearLabel = ShipTableViewCell.makeLabel(withFontStyle: .description)
 
     private lazy var userInfoStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [nameLabel, typeLabel, yearLabel])
@@ -65,12 +65,12 @@ final class ShipTableViewCell: UITableViewCell {
         }
     }
 
-    static func makeLabel(withFontStyle fontStyle: UIFont) -> UILabel {
+    static func makeLabel(withFontStyle fontStyle: UILabel.TextStyle) -> UILabel {
         let label = UILabel()
         label.textColor = .flashWhite
         label.numberOfLines = 0
         label.textAlignment = .left
-        TextStyle.applyDynamicType(to: label, font: fontStyle)
+        label.applyStyle(fontStyle)
         return label
     }
 }

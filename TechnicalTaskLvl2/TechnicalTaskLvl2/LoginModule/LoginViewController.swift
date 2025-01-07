@@ -33,7 +33,7 @@ final class LoginViewController: UIViewController {
         let label = UILabel()
         label.text = Localizable.welcomeLabel
         label.textColor = .white.withAlphaComponent(0.8)
-        TextStyle.applyDynamicType(to: label, font: TextStyle.header)
+        label.applyStyle(.header)
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
@@ -92,7 +92,7 @@ final class LoginViewController: UIViewController {
     static func createCustomButton(title: String, titleColor: UIColor, backgroundColor: UIColor) -> UIButton {
         let button = UIButton()
         button.setTitle(title, for: .normal)
-        button.titleLabel?.font = TextStyle.header
+        button.titleLabel?.applyStyle(.header)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.setTitleColor(titleColor, for: .normal)
         button.backgroundColor = backgroundColor

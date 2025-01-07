@@ -38,13 +38,13 @@ private extension LabeledInputField {
     func setupLabel(with text: String) {
         label.text = text
         label.textColor = .white.withAlphaComponent(0.8)
-        TextStyle.applyDynamicType(to: label, font: TextStyle.description)
+        label.applyStyle(.description)
     }
     
     func setupInvalidEmailLabel() {
         invalidEmailLabel.text = Localizable.invalidEmailLabel
         invalidEmailLabel.textColor = .candyAppleRed
-        TextStyle.applyDynamicType(to: invalidEmailLabel, font: TextStyle.title)
+        label.applyStyle(.title)
         invalidEmailLabel.numberOfLines = 0
         invalidEmailLabel.textAlignment = .left
         invalidEmailLabel.isHidden = true

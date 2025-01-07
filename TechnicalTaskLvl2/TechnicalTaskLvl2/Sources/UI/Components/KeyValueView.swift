@@ -38,10 +38,10 @@ private extension KeyValueView {
         layer.cornerRadius = 15.0
         
         keyLabel.textColor = .white.withAlphaComponent(0.8)
-        TextStyle.applyDynamicType(to: keyLabel, font: TextStyle.body)
+        keyLabel.applyStyle(.body)
         
         valueLabel.textColor = .flashWhite
-        TextStyle.applyDynamicType(to: valueLabel, font: TextStyle.header)
+        valueLabel.applyStyle(.header)
     }
     
     func setupLayout() {
